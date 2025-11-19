@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>အမှတ်တရ ဓာတ်ပုံ Album</title>
+    <style>
+        /* Pyidaungsu Font ကို ဒီစာမျက်နှာမှာပါ သုံးဖို့ သတ်မှတ်ခြင်း */
+        @font-face {
+            font-family: 'Pyidaungsu';
+            src: url('Pyidaungsu.ttf');
+            format('truetype'); 
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Pyidaungsu', Arial, sans-serif;
+            background-color: pink; /* ပန်းရောင် နည်းနည်း ပိုဖျော့တဲ့ နောက်ခံ */
+            color: #44;
+            text-align: center;
+            padding: 0px;
+        }
+        
+        .album-header {
+            color: #d81b60; /* နက်ရှိုင်းတဲ့ ပန်းရောင် */
+            padding-bottom:20px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom:2px solid Brown;
+        }
+
+        /* ဓာတ်ပုံ Grid ပုံစံအတွက် */
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap; /* နေရာမဆန့်ရင် အောက်ကို ဆင်းသွားအောင် */
+            justify-content: center; /* အလယ်မှာ နေရာချထားရန် */
+            gap: 20px; /* ဓာတ်ပုံ တစ်ပုံနဲ့ တစ်ပုံကြား ခြားနားမှု */
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .photo-item {
+            width: 320px; /* ဓာတ်ပုံ အရွယ်အစား */
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        
+        .photo-caption {
+            font-size: 1em;
+            color: red;
+            margin-top: 8px;
+        }
+        
+        .back {
+            width: 75%;
+            display: block;
+            margin: 50px;
+            font-size: 1.2em;
+            color: #d81b60;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+  <script>
+    if (!sessionStorage.getItem('loggedInUser')) {
+      alert('ဝင်ရောက်ခွင့် မရှိပါ။ ကျေးဇူးပြု၍ Login ဝင်ပါ။');
+      window.location.href = 'index@.html';
+    }
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+  </script>
+    <h1 class="album-header">ချစ်ရသူလေးရဲ့ အမှတ်တရ ဓာတ်ပုံများ</h1>
+    
+    <div class="photo-grid">
+        
+        <div class="photo-item">
+            <img src="photo/01.jpeg" alt="သူမရဲ့ အပြုံး">
+            <p class="photo-caption">မင်းရဲ့ ပထမဆုံး အပြုံးလေးကို မြင်ရတဲ့နေ့။</p>
+        </div>
+
+        <div class="photo-item">
+            <img src="photo/02.jpeg" alt="အတူရှိခဲ့တဲ့ နေရာ">
+            <p class="photo-caption">ငါတို့ အတူတူ သွားခဲ့တဲ့ ခရီးလေးရဲ့ အမှတ်တရ။</p>
+        </div>
+        
+        <div class="photo-item">
+            <img src="photo/03.jpeg" alt="အလှဆုံးဓာတ်ပုံ">
+            <p class="photo-caption">မင်းကို အလှဆုံးလို့ မြင်ရတဲ့ ပုံလေး။</p>
+        </div>
+
+        <div class="photo-item">
+            <img src="photo/04.jpeg" alt="ချစ်ရတဲ့ပုံ">
+            <p class="photo-caption">ဒီပုံလေးက ငါ့အချစ်ဆုံး။</p>
+        </div>
+        
+    </div>
+    
+    <a href="index@.html" class="back">
+        💌 ချစ်ခြင်းမေတ္တာ စာမျက်နှာသို့ ပြန်သွားရန်
+    </a>
+
+</body>
+</html>

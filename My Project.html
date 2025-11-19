@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ချစ်သူအတွက် ပေးစာ</title>
+  <style>
+  @font-face {
+            font-family: 'Pyidaungsu';
+            src: url('Pyidaungsu.ttf');
+            format('truetype'); 
+            font-weight: normal;
+            font-style: normal;}
+    body {
+      margin:0;
+      text-align:center;
+      padding:20px;
+      font-family:'Pyidaungsu', Arial, sans-serif;
+      color: black;
+      background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('photo/27.jpg'); 
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      background-attachment:fixed;
+      padding:20px;
+    }
+
+     h1 {
+      font-size: 2em;
+      margin-top:5px;
+      color: purple;
+    }
+
+    header h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin:15px;
+      color:Black;
+    }
+    
+    section {
+      padding: 10px 2px;
+      text-align: center;
+    }
+
+    section p {
+      font-size: 15px;
+      max-width: 600pxpx;
+      margin: 0px;
+      line-height: 35px;
+      text-align:justify;
+    }
+    .heart-icon {
+        color: #ff4d6d;
+        font-size: 3em;
+        animation: heartbeat 1.2s infinite ease-in-out; 
+        display: block;
+        margin: 20px auto;
+        text-shadow: 0 0 10px #ff4d6d;
+    }
+    @keyframes heartbeat {
+      0% { transform: scale(0.9); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+      100% { transform: scale(.9); opacity: 1; }
+    }
+  
+    .year-box {
+      background: rgba(255,255,255,0);
+      backdrop-filter:blur(3px);
+      border-radius: 20px;
+      padding: 20px;
+      margin: 50px auto;
+      max-width: 600px;
+      box-shadow: 0 0 11px rgba(0,0,0,0.8);
+    }
+
+    .year-box h3 {
+      padding-bottom:13px;
+      margin-bottom: 15px;
+      border-bottom:2px solid red;
+      color: purple;
+    }
+    
+    .Box {
+      background: rgba(255,255,255,0);
+      backdrop-filter:blur(3px);
+      perspective: 1000px;
+      border:2px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 3px;
+      margin: 50px auto;
+      max-width: 600px;
+      box-shadow: 0 0 11px rgba(0,0,0,0.8);
+    }
+    .jpg {
+        max-width: 100%;
+        height: auto;
+        border-radius: 20px;
+        margin-bottom: 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+    footer {
+        text-align: center;
+        padding:0;
+        background:white;
+        border: 3px solid black;
+        border-radius:20px;
+        color: black;
+        margin-top: 40px;
+        margin-bottom:5px;
+    }
+
+    .abc {
+      border-bottom: 5px solid Black;
+      margin-top:50px;
+    }
+  </style>
+</head>
+
+<body>
+    <script>
+    if (!sessionStorage.getItem('loggedInUser')) {
+      alert('ဝင်ရောက်ခွင့် မရှိပါ။ ကျေးဇူးပြု၍ Login ဝင်ပါ။');
+      window.location.href = 'index@.html';
+    }
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+  </script>
+   <div class="container">
+        <button id="playButton" 
+        style="padding:3px 7px;
+        font-size:1em; 
+        background:rgba(255,255,255,0.8); 
+        color: black; 
+        border: none; 
+        border-radius:8px; 
+        cursor:pointer;">
+  🎵 နောက်ခံဂီတ နားဆင်ရန် နှိပ်ပါ 🎵
+        </button>
+<audio id="myLoveSong" src="music/CC.mp3"></audio>
+</div>
+  <header>
+    <h2> သို့..ချစ်ရပါသော</h2>
+  </header>
+  
+  <section id="home">
+    <h1>
+      ကောင်မလေးရေ
+      </h1>
+    <span class="heart-icon">❤️</span>
+  </section>
+  
+  <section id="categories">
+    <div class="year-box">
+      <h3>ရင်ထဲက ပထမဆုံးစကား</h3>
+      <p> ဒီစာလေးကိုဖတ်တဲ့အခါ မင်းရဲ့မျက်နှာလေးမှာ အပြုံးပန်းတွေ ပွင့်စေချင်တယ်။
+            မင်းက ငါ့ဘဝရဲ့ အလှပဆုံးသော အလင်းရောင်ပါပဲ။
+            မင်းနဲ့အတူရှိတဲ့ နေ့ရက်တိုင်းဟာ ငါ့အတွက်တော့ အဓိပ္ပာယ်ရှိတဲ့ အကောင်းဆုံးအချိန်တွေပါ။
+            မင်းရဲ့ နွေးထွေးတဲ့ အပြုံး၊ ရိုးသားတဲ့စိတ်ထားတွေကြောင့် ငါအမြဲတမ်း ပျော်ရွှင်ရတယ်။
+            ချစ်ခြင်းမေတ္တာဆိုတာ စကားလုံးတွေထက် ပိုတယ်ဆိုတာ မင်းသိပါတယ်။
+            ဒါပေမဲ့ 'ချစ်တယ်' ဆိုတဲ့ စကားလုံးက ငါ့ရင်ထဲက အချစ်တွေကို ဖော်ပြဖို့ အခက်ဆုံးဖြစ်နေလို့ ဒီစာမျက်နှာလေး ဖန်တီးလိုက်တာပါ။</p>
+    </div>
+
+    <div class="year-box">
+        <h3>အချစ်ရဲ့ အဓိပ္ပာယ်</h3>
+        <p>
+           ချစ်ခြင်းဆိုတာ စက္ကန့်တိုင်း ရင်ခုန်နေတာမျိုးပါပဲ။ အဲဒီ ရင်ခုန်သံတိုင်းမှာ မင်းရဲ့ နာမည်ပဲ ရှိတယ်။ 
+           မင်းက ငါ့ရဲ့ အချစ်ဆုံးသူငယ်ချင်း၊ ငါ့ရဲ့အိမ်၊ ငါ့ရဲ့အနာဂတ်... အရာရာအားလုံး ဖြစ်လို့နေတယ်။
+           ငါတို့အတူတူရှိနေရင် ဘဝက အရောင်အသွေးစုံလင်နေတာပဲ။
+        </p>
+    </div>
+
+    <div class="year-box">
+        <h3>ထာဝရ ကတိ</h3>
+        <p>
+           မင်းရဲ့ ဘေးနားမှာ အမြဲတမ်းရှိနေပေးမယ်လို့ ကတိပေးပါတယ်။ ဘယ်လို အခက်အခဲပဲကြုံပါစေ၊ မင်းလက်ကို မြဲမြဲဆုပ်ကိုင်ပြီး အတူတူ ဖြတ်ကျော်သွားကြမယ်။ 
+           ငါ မင်းကို အမြဲတမ်း ပျော်ရွှင်အောင် ထားချင်တယ်။ အမြဲတမ်းချစ်နေပါ့မယ် အချစ်ဆုံးလေး။
+        </p>
+    </div>
+      
+    <div class="year-box">
+        <p>
+       မင်းက ငါ့ဘဝထဲမှာ ကြယ်လို လင်းလက်နေတာ ကြောင့် ငါ့ရဲ့ နေ့ရက်တိုင်းဟာ မှောင်မိုက်ခြင်းကင်းပြီး အဓိပ္ပာယ်တွေ ပြည့်နေခဲ့တာပါ။
+            မင်းမရှိတဲ့ ကမ္ဘာကြီးကို ငါဘယ်လိုမှ စိတ်ကူးမယဉ်နိုင်ဘူး။
+        </p> </div>
+      
+     <div class="year-box">
+    <p>
+      မင်းကို ဘယ်လောက်ထိ ချစ်တယ်ဆိုတာ စကားလုံးတွေနဲ့ ဖော်ပြဖို့ ခက်ပါတယ်။
+            မင်းက ငါ့ဘဝထဲကို ဝင်ရောက်လာတဲ့ နေ့ကစပြီး ငါ့ရဲ့ နေ့ရက်တိုင်းဟာ ပိုပြီး အဓိပ္ပာယ်ရှိလာခဲ့တယ်။
+            မင်းရဲ့ အပြုံးလေးတွေ၊ ရယ်မောသံလေးတွေနဲ့ နွေးထွေးတဲ့ စိတ်ထားတွေအတွက် ငါ အမြဲတမ်း ကျေးဇူးတင်နေမိတယ်။
+            </p>
+     </div>
+     <div class="Box">
+      <img src="photo/01.jpeg" class="jpg">
+      </div>
+      <div class="Box">
+      <img src="photo/02.jpeg" class="jpg">
+      </div>
+    </section>  
+  <p class="abc"></p>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+   <p> ချစ်ရသူရဲ့မေတ္တာစကားကိုစောင့်မျှော်လျှက်။</p>
+ <p> <a href="index@.html" style="text-decoration:none;">ရှေ့မျတ်နှာသို့ ပြန်သွားလိုပါက နှိပ်ပါ</a></p>
+  
+  </footer>
+  <script>
+  
+    document.getElementById('playButton').addEventListener('click', function() {
+        var audio = document.getElementById('myLoveSong');
+        var button = this;
+
+        // 1. သီချင်းကို စဖွင့်ရန် ကြိုးစားခြင်း
+        audio.play()
+            .then(() => {
+                // ဖွင့်တာ အောင်မြင်မှသာ ခလုတ်ကို ဖျောက်ပါ
+                button.style.display = 'none';
+            })
+            .catch(error => {
+                // ဖွင့်တာ မအောင်မြင်ရင် (ဥပမာ- Browser က တားရင်)
+                console.error("Audio playback failed:", error);
+                // သတိပေးပြီး ခလုတ်ကို မဖျောက်ဘဲထားပါ (အသုံးပြုသူ နောက်တစ်ကြိမ် နှိပ်ကြည့်နိုင်ရန်)
+                alert("သီချင်းဖွင့်လို့ မရပါ။ Browser setting သို့မဟုတ် ဖိုင်တည်နေရာ စစ်ဆေးပါ။");
+            }); 
+    });
+            
+
+ </script>
+
+</body>
+</html>

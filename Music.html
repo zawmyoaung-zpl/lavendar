@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Music Player</title>
+        <link rel="stylesheet" href="/css/all.min.css">
+        
+        <style>
+  body {
+      margin:0;
+      text-align:center;
+      padding:20px;
+      font-family: "Noto Sans Myanmar", sans-serif;
+      color: black;
+      /* နောက်ခံပုံ */
+      background: url('23.jpg'); 
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      background-attachment:fixed;
+      padding:20px;
+    }
+    
+    .container {
+    width: 300px;
+    height: 500px;
+    padding: 15px;
+    background-color: rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(3px);
+    border-radius: 15px;
+    box-shadow: 0 0 11px rgba(0, 0, 0, 0.8);
+    margin: 50px auto; 
+    position: relative;
+    }
+.playlistContainer {
+            max-height: 350px;
+            overflow-y: auto; 
+            padding-right: 10px; 
+            margin-bottom: 5px;
+          }
+
+    .trackItem {
+        padding: 5px 5px;
+        margin: 10px 0;
+        cursor: pointer;
+        border-bottom: 1px solid #444;
+        transition: background-color 0.2s;
+        text-align: left;
+    }
+        .trackItem:hover {
+        background-color: none;
+    }
+
+    .activeTrack {
+        color: Red; 
+        font-weight: bold;
+    }
+    .currentAndTotlTime {
+        text-align: center;
+        margin: 20px 0 10px 0;
+        font-size: 1.2em;
+    }
+    #progressBar {
+        width: 100%;
+        height: 5px;
+        background-color: White;
+        border-radius: 2.5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+    #currentProgress {
+        height: 100%;
+        width: 0%; 
+        background-color: #ff4d6d; /* မူလအရောင် #58a6ff မှ ချစ်ခြင်းကို ကိုယ်စားပြုသော အရောင်သို့ ပြောင်းထားသည် */
+        border-radius: 2.5px;
+    }
+    .musicPlayer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        font-size: 2em;
+        font-style: normal;
+    }
+    .controls {
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .controls:hover {
+        color: white;
+    }
+    .pauseButton {
+        display: none; 
+    }
+.fa, .fas, .far, .fab, .musicPlayer i {
+    font-style: normal!important;
+    transform: none!important; 
+}
+.musicPlayer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    font-size: 1.5em;
+}
+.controls {
+    color: white;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.musicPlayer .playButton,
+.musicPlayer .pauseButton {
+    font-size: 1.3em;
+    color: White;
+}
+.musicPlayer .playButton:hover,
+.musicPlayer .pauseButton:hover {
+    color: Black;}
+    
+  /* === Volume Control CSS === */
+        .volumeControl {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        
+        #volumeSlider {
+            width: 130px; 
+            height: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: black; 
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #volumeSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .volumeIcon {
+            font-size: 1.3em;
+            color: Purple;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .volumeIcon:hover {
+            color: Purple;
+        }  
+  
+        .back-link {
+            display: block;
+            margin-top: 40px;
+            font-size: 1.2em;
+            color: #d81b60;
+            text-decoration: none; /* အောက်ခံမျဉ်း ဖျောက်ထားတာ */
+        }
+        </style>
+    </head>
+    <body>
+        <script>
+    if (!sessionStorage.getItem('loggedInUser')) {
+      alert('ဝင်ရောက်ခွင့် မရှိပါ။ ကျေးဇူးပြု၍ Login ဝင်ပါ။');
+      window.location.href = 'index@.html';
+    }
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+  </script>
+        <div class="container">
+            <div class="playlistContainer"></div>
+            
+            <audio src="" class="audioTag">
+                Your browser does not support the audio element.
+            </audio>
+
+            <div class="currentAndTotlTime">00:00 / 00:00</div> 
+            
+            <div id="progressBar">
+                <div id="currentProgress"></div>   
+            </div>
+            
+            <div class="musicPlayer">
+                <i class="fas fa-step-backward controls previousButton"></i>
+                <i class="fas fa-play-circle controls playButton"></i>
+                <i class="fas fa-pause-circle controls pauseButton"></i>
+                <i class="fas fa-step-forward controls nextButton"></i>
+            </div>
+            <div class="volumeControl">
+            <i class="fas fa-volume-up volumeIcon" id="volumeIcon"></i> 
+            <input type="range" id="volumeSlider" min="0" max="100" value="50">
+        </div>
+        </div>
+            <a href="index@.html" class="back-link">
+        💌 ချစ်ခြင်းမေတ္တာ စာမျက်နှာသို့ ပြန်သွားရန်
+    </a>
+        <script>
+            // === 1. DOM Elements များကို ရယူခြင်း ===
+            const playListContainerTag = document.getElementsByClassName("playlistContainer")[0];
+            
+            // Fix: HTML တွင် 'currentAndTotlTime' ဖြစ်၍ ထိုအတိုင်း ရယူသည်
+            const currentAndTotlTimeTag = document.getElementsByClassName("currentAndTotlTime")[0]; 
+            
+            const currentProgressTag = document.getElementById("currentProgress");
+            const progressBarTag = document.getElementById("progressBar"); // Progress bar နှိပ်ရန်အတွက်
+            const audioTag = document.getElementsByClassName("audioTag")[0];
+            const playButtonTag = document.getElementsByClassName("playButton")[0];
+            const pauseButtonTag = document.getElementsByClassName("pauseButton")[0];
+            const previousButtonTag = document.getElementsByClassName("previousButton")[0];
+            const nextButtonTag = document.getElementsByClassName("nextButton")[0];
+            const volumeSliderTag = document.getElementById("volumeSlider");
+            const volumeIconTag = document.getElementById("volumeIcon");
+
+ // 1.သီချင်းစရင်း ==
+            const tracks = [
+                { trackId: "music/01.mp3", title: "နှစ်ဦးသစ္စာ - အေးမြဖြူ"},
+                { trackId: "music/02.mp3", title: "အညတရရွာသား - အောင်မိုးညို"},
+                { trackId: "music/03.mp3", title: "သူသိပါကွယ် - ဖြိုးကြီး"},
+                { trackId: "music/manaw1.mp3", title:"နွယ်ညို - မနော"},
+                { trackId: "music/manaw2.mp3", title: "ကြာဖြူ - မနော"},
+                { trackId: "music/yoon1.mp3", title: "အဆင်ပြေမနေဘူး - ယွန်းမြတ်သူ"},
+                { trackId: "music/joelay.mp3", title: "သို့ အတိတ်က - Joe Lay"},
+                { trackId: "music/may1.mp3", title:
+                "မျတ်ဝန်းမှတဆင့် - မေသတ်ထားဆွေ "},
+                { trackId: "music/may2.mp3", title:
+                "နိမိတ်ကောင်းမင်္ဂလာ - မေသတ်ထားဆွေ"},
+                { trackId: "music/AB.mp3", title: "မင်းကြောင့် - နန်းစုရတီစိုး" },
+                { trackId: "music/AA.mp3", title:" မိုးတွေရွာတိုင်းမျက်ရည်ဝိုင်း - ဟန်ထူးစျန်" },
+                { trackId: "music/BB.mp3", title: "အညာပုံပြင် - ဖော်ဝေး" },
+                { trackId: "music/CC.mp3", title:"အချစ်စစ်ရဲ့တန်ဖိုး - မနော" },
+                { trackId: "music/DD.mp3", title: "   ကိုယ်လာရင်ကြိုမှာလား - ဟန်ထူးစျာန်"}
+            ];
+
+    let currentTrackIndex = 0;
+    
+    // 3. Time တွက်ချက်ခြင်း Function
+    const calculateTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        const minutesText = minutes < 10 ? "0" + minutes : minutes;
+        const secondsText = seconds < 10 ? "0" + seconds : seconds;
+        return minutesText + ":" + secondsText;
+    };
+
+    // 4. Play/Pause Icon ပြောင်းလဲခြင်း Function
+    const updatePlayPauseButton = () => {
+        if (audioTag.paused) {
+            playButtonTag.style.display = "inline-block";
+            pauseButtonTag.style.display = "none";
+        } else {
+            playButtonTag.style.display = "none";
+            pauseButtonTag.style.display = "inline-block";
+        }
+    };
+
+    // 5. သီချင်းအသစ်ဖွင့်ခြင်း Function
+    const playTrack = (index) => {
+        currentTrackIndex = index;
+        const trackId = tracks[currentTrackIndex].trackId;
+        audioTag.src = trackId;
+        highlightActiveTrack();
+        // audioTag.load(); // Metadata ကို သေချာတင်ရန် လိုအပ်ပါက ထည့်နိုင်သည်
+    };
+
+    // 6. လက်ရှိဖွင့်နေသော သီချင်းကို Highlight လုပ်ခြင်း Function
+    const highlightActiveTrack = () => {
+        const trackItems = document.querySelectorAll(".trackItem");
+        trackItems.forEach((item, index) => {
+            item.classList.remove("activeTrack");
+            if (index === currentTrackIndex) {
+                item.classList.add("activeTrack");
+            }
+        });
+    };
+    
+    // 7. နောက်တစ်ပုဒ်သို့ ရွှေ့ခြင်း
+    const playNext = () => {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        playTrack(currentTrackIndex);
+        audioTag.play(); 
+    };
+
+    // 8. အရှေ့တစ်ပုဒ်သို့ ရွှေ့ခြင်း
+    const playPrevious = () => {
+        currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length; 
+        playTrack(currentTrackIndex);
+        audioTag.play(); 
+    };
+
+    // ** 9. updateVolumeIcon Function (Error ဖြေရှင်းရန် အပေါ်သို့ ရွှေ့ထားသည်) **
+    // Volume Icon ကို Volume တန်ဖိုးအလိုက် ပြောင်းလဲပေးသော Function
+    const updateVolumeIcon = (volumeLevel) => {
+        volumeIconTag.className = 'fas volumeIcon'; 
+        
+        if (audioTag.muted || volumeLevel === 0) {
+            volumeIconTag.classList.add('fa-volume-mute');
+        } else if (volumeLevel > 0.5) {
+            volumeIconTag.classList.add('fa-volume-up');
+        } else if (volumeLevel > 0) {
+            volumeIconTag.classList.add('fa-volume-down');
+        }
+    };
+
+    // 10. Playlist ကို ဖန်တီးခြင်း
+    for (let i = 0; i < tracks.length; i++) {
+        const trackTag = document.createElement("div");
+        trackTag.classList.add("trackItem");
+
+        const title = (i + 1).toString() + ". " + tracks[i].title; 
+        
+        trackTag.textContent = title;
+        
+        trackTag.addEventListener("click", () => {
+            playTrack(i);
+            audioTag.play(); 
+        });
+        
+        playListContainerTag.append(trackTag);
+    }
+
+    // 11. Player စတင်ချိန်
+    if (tracks.length > 0) {
+        playTrack(0);
+        audioTag.pause();
+        updatePlayPauseButton(); // Initial state: show Play button
+
+        // ** Volume Initial Setup **
+        audioTag.volume = volumeSliderTag.value / 100; // 50/100 = 0.5
+        updateVolumeIcon(audioTag.volume); // Volume Icon စတင်ချိန် ချိန်ညှိခြင်း
+    }
+
+    // === 12. Media Controls Events ===
+    playButtonTag.addEventListener("click", () => {
+        audioTag.play();
+    });
+    pauseButtonTag.addEventListener("click", () => {
+        audioTag.pause();
+    });
+    nextButtonTag.addEventListener("click", playNext);
+    previousButtonTag.addEventListener("click", playPrevious);
+    
+    // Icon Update Listeners
+    audioTag.addEventListener("play", updatePlayPauseButton);
+    audioTag.addEventListener("pause", updatePlayPauseButton);
+
+    // Time Update / Progress Bar
+    audioTag.addEventListener("loadedmetadata", () => {
+        const totalTime = calculateTime(audioTag.duration);
+        currentAndTotlTimeTag.textContent = "00:00 / " + totalTime; 
+    });
+
+    audioTag.addEventListener("timeupdate", () => {
+        const currentTime = audioTag.currentTime;
+        const duration = audioTag.duration;
+        
+        const currentTimeText = calculateTime(currentTime);
+        const totalTimeText = calculateTime(duration);
+
+        currentAndTotlTimeTag.textContent = currentTimeText + " / " + totalTimeText;
+
+        const currentProgress = (currentTime / duration) * 100;
+        currentProgressTag.style.width = currentProgress + "%";
+    });
+
+    // သီချင်းဆုံးသွားရင် နောက်တစ်ပုဒ်သို့ အလိုအလျောက်ကူးပြောင်း
+    audioTag.addEventListener("ended", playNext); 
+    
+    // Progress Bar နှိပ်၍ အချိန်ရွှေ့ခြင်း
+    progressBarTag.addEventListener("click", (e) => {
+        const progressBarWidth = progressBarTag.clientWidth;
+        const clickX = e.offsetX; 
+        
+        const percentage = (clickX / progressBarWidth); 
+        
+        if (!isNaN(audioTag.duration) && isFinite(audioTag.duration)) {
+            audioTag.currentTime = percentage * audioTag.duration;
+        }
+    });
+
+    // === 13. Volume Control Events ===
+
+    // Volume Slider ရွှေ့လျှင် Audio Volume ကို ပြောင်းလဲပေးခြင်း
+    volumeSliderTag.addEventListener('input', () => {
+        const newVolume = volumeSliderTag.value / 100;
+        audioTag.muted = false; // Slider ကို ရွှေ့ရင် Mute ကို ဖြုတ်
+        audioTag.volume = newVolume;
+        
+        // Icon ကို update လုပ်
+        updateVolumeIcon(newVolume);
+    });
+
+    // Volume Icon ကို နှိပ်၍ Mute/Unmute လုပ်ခြင်း
+    volumeIconTag.addEventListener('click', () => {
+        if (audioTag.muted) {
+            audioTag.muted = false;
+            // Mute ဖြုတ်ရင် Slider က တန်ဖိုးကို Volume ပြန်ပေး
+            const currentSliderValue = volumeSliderTag.value / 100; 
+            audioTag.volume = currentSliderValue; 
+        } else {
+            audioTag.muted = true;
+        }
+        // Mute/Unmute အခြေအနေပြောင်းတိုင်း Icon ကို update လုပ်
+        updateVolumeIcon(audioTag.volume); 
+    });
+
+    // volumechange event ကို နားထောင်ခြင်း (Slider ကို မရွှေ့ဘဲ Mute/Unmute လုပ်တာမျိုးအတွက်)
+    audioTag.addEventListener('volumechange', () => {
+        if (!audioTag.muted) {
+            // Mute မဖြစ်မှသာ Slider တန်ဖိုးကို Audio volume နဲ့ ပြန်ချိန်ညှိ
+            volumeSliderTag.value = audioTag.volume * 100;
+        }
+        updateVolumeIcon(audioTag.volume);
+    });
+        </script>
+    </body>
+</html>

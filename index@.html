@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Poppins, Arial, sans-serif;
+        background: url('photo/25.jpg') no-repeat center center/cover;
+        background-attachment: fixed;
+    }
+
+    /* Navbar Glass Effect */
+    .navbar {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Menu List */
+    .menu-list {
+        display: flex;
+        gap: 25px;
+    }
+
+    .menu-list a {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        font-size: 18px;
+        position: relative;
+        padding: 6px 8px;
+        transition: 0.3s ease;
+    }
+
+    /* Hover Underline Animation */
+    .menu-list a::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: cyan;
+        border-radius: 5px;
+        transition: 0.3s ease;
+    }
+
+    .menu-list a:hover::after {
+        width: 100%;
+        box-shadow: 0 0 8px cyan;
+    }
+
+    /* Glow on Hover */
+    .menu-list a:hover {
+        color: cyan;
+        text-shadow: 0 0 10px cyan;
+    }
+
+    /* Hamburger Button */
+    .menu-button {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .bar {
+        width: 28px;
+        height: 3px;
+        border-radius: 5px;
+        background: white;
+        transition: 0.3s;
+    }
+
+    /* Logout Button */
+    .btn-logout {
+        background: #ff4d4d;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-logout:hover {
+        background: #ff1a1a;
+        box-shadow: 0 0 10px red;
+    }
+
+@media (max-width: 768px) {
+
+    .menu-button {
+        display: flex;
+    }
+
+    .menu-list {
+        position: absolute;
+        top: 70px;              /* Menu button အောက် */
+        left: 10px;             /* Menu button ၏ ဘယ်ဘက်အောက် */
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(10px);
+        padding: 15px 20px;
+        border-radius: 12px;
+        flex-direction: column;
+        display: none;
+        gap: 15px;
+        width: 90px;
+        text-align: left;
+        box-shadow: 0 0 15px rgba(0,255,255,0.3);
+        z-index: 999;
+    }
+
+    .menu-list.active {
+        display: flex;
+    }
+}
+</style>
+</head>
+<body>
+    <script>
+    if (!sessionStorage.getItem('loggedInUser')) {
+      alert('ဝင်ရောက်ခွင့် မရှိပါ။ ကျေးဇူးပြု၍ Login ဝင်ပါ။');
+      window.location.href = 'index.html';
+    }
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+  </script>
+    <div class="navbar">
+        <button class="menu-button" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </button>
+   <button id="logoutBtn" class="btn-logout">Logout</button>
+        <div id="menu" class="menu-list">
+            <p><a href="My Project.html">Luv-Letter</a></p>
+            <p><a href="album.html">Album</a></p>
+            <p><a href="Music.html">Music</a></p>
+            <p><a href="Video.html">Video</a></p>
+        </div>
+    </div>  
+    
+        <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');}
+        
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        sessionStorage.removeItem('loggedInUser');
+        window.location.href = 'index.html';
+    });
+    </script>
+</body>
+</html>

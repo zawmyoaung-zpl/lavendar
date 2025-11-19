@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Router Login</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin:0;
+            height:100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #e0e5ec;
+        }
+        
+
+        /* Login Container (Box) */
+        .card {
+            
+            background: #e0e5ec;
+            padding:30px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px #b8bcc2,
+                        -10px -10px 20px #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            width: 230px;
+        }
+
+        .card h2 {
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        /* Form Styling */
+        .input {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 12px;
+            background: #e0e5ec;
+            box-shadow: inset 5px 5px 10px #b8bcc2,inset -5px -5px 10px #ffffff;
+            outline: none;
+            font-size: 16px;
+        }
+      .password-wrapper{
+      position:relative;
+    }      
+        .button {
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: #e0e5ec;
+            box-shadow: 5px 5px 10px #b8bcc2,
+                       -5px -5px 10px #ffffff;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-size:1.5em;
+            font-weight:bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width:40%;
+        }
+
+        .button:hover {
+              box-shadow: inset 5px 5px 10px #b8bcc2,
+                          inset -5px -5px 10px #ffffff;
+        }
+        
+    .toggle-eye{
+      position:absolute;
+      right:10px;
+      top:50%;
+      transform:translateY(-50%);
+      cursor:pointer;
+      font-size:18px;
+      color:#666;
+    }
+   .msg{color:#b00020;font-size:14px;min-height:18px;}
+    
+        .heart-icon {
+        color: #ff4d6d;
+        font-size: 3em;
+        animation: heartbeat 1.2s infinite ease-in-out; 
+        display: block;
+        margin: 20px auto;
+        text-shadow: 0 0 10px #ff4d6d;
+    }
+    @keyframes heartbeat {
+      0% { transform: scale(0.9); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+      100% { transform: scale(.9); opacity: 1; }
+    }
+    </style>
+</head>
+<body>
+  <form id="loginForm" autocomplete="off">
+    <div class="card">
+    <span class="heart-icon">❤️</span>
+            <input id="loginInput" type="text" class="input" placeholder="Username" required/>
+            <div class="password-wrapper">
+            <input id="passwordInput" type="password" class="input" placeholder="Password" required/> 
+            <span id="toggleEye" class="toggle-eye">👁️</span></div>
+            
+            <button type="submit" class="button">
+                Login
+            </button>
+            <div class="msg" id="msg"></div>
+                </div>
+    </form>
+    
+  <script>
+    // ====== အကောင့်ဝင်ရောက်ခွင့်များ (Credentials) ======
+    const credentials = {
+      "zawmyoaung": "zaw@7",
+      "a": "b"
+    };
+    // ====================================
+
+    const form = document.getElementById('loginForm');
+    const loginInput = document.getElementById('loginInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const msg = document.getElementById('msg');
+    const toggleEye = document.getElementById('toggleEye');
+    
+    // Password မြင်ရ/မမြင်ရ ခလုတ်
+    toggleEye.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleEye.textContent = '🙈'; // ပိတ်ထားသောမျက်လုံး
+      } else {
+        passwordInput.type = 'password';
+        toggleEye.textContent = '👁️'; // ဖွင့်ထားသောမျက်လုံး
+      }
+    });
+    
+        // Login Form ကို submit လုပ်သောအခါ
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      const username = loginInput.value.trim();
+      const password = passwordInput.value;
+
+      if (credentials[username] && credentials[username] === password) {
+        // Login အောင်မြင်ပါက Session ကို သိမ်းဆည်းပြီး dashboard.html သို့ ပို့ဆောင်ခြင်း
+        sessionStorage.setItem('loggedInUser', username);
+        window.location.href = 'index@.html';
+      } else {
+        // Login မအောင်မြင်ပါက အမှားပြခြင်း
+        msg.textContent = 'Username သို့မဟုတ် password မှားနေပါသည်။';
+      }
+    });
+    
+    if (sessionStorage.getItem('loggedInUser')) {
+      window.location.href = 'index@.html';
+    }
+    
+  </script>
+</body>
+</html>
